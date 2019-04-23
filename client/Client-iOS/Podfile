@@ -4,5 +4,7 @@ target 'Client-iOS' do
   use_frameworks!
 
   # Pods for Client-iOS
-pod 'SnapKit', '~> 4.0'
+  pod 'SnapKit', '~> 4.0'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 end

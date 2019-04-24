@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		356699EB5BA9DEA34586B0DC /* Pods_Client_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6159541DE904E932C9FB6F /* Pods_Client_iOS.framework */; };
+		F8507AF722700C4200595A87 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF622700C4200595A87 /* CitiesViewModel.swift */; };
+		F8507AF922700EA200595A87 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF822700EA200595A87 /* RemoteData.swift */; };
+		F863A8F6226F97B200B5F489 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863A8F5226F97B200B5F489 /* Country.swift */; };
+		F863A8F8226F97F300B5F489 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863A8F7226F97F300B5F489 /* City.swift */; };
 		F8E87E31226F2CBF00B5F70F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E87E30226F2CBF00B5F70F /* AppDelegate.swift */; };
 		F8E87E33226F2CBF00B5F70F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E87E32226F2CBF00B5F70F /* ViewController.swift */; };
 		F8E87E38226F2CBF00B5F70F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E87E37226F2CBF00B5F70F /* Assets.xcassets */; };
@@ -21,6 +25,10 @@
 		21DD6188B19ED0B6578D7052 /* Pods-Client-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client-iOS/Pods-Client-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		6F006DA2E195036F7DD29571 /* Pods-Client-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client-iOS/Pods-Client-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		DD6159541DE904E932C9FB6F /* Pods_Client_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8507AF622700C4200595A87 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
+		F8507AF822700EA200595A87 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
+		F863A8F5226F97B200B5F489 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		F863A8F7226F97F300B5F489 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F8E87E2D226F2CBF00B5F70F /* Client-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Client-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E87E30226F2CBF00B5F70F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8E87E32226F2CBF00B5F70F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +69,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F8507AF522700C1F00595A87 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F8507AF622700C4200595A87 /* CitiesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F863A8F9226F990200B5F489 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				F8507AF822700EA200595A87 /* RemoteData.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		F8E87E24226F2CBF00B5F70F = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +106,8 @@
 		F8E87E2F226F2CBF00B5F70F /* Client-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F8507AF522700C1F00595A87 /* ViewModel */,
+				F863A8F9226F990200B5F489 /* Networking */,
 				F8E87E47226F44B200B5F70F /* Model */,
 				F8E87E44226F423400B5F70F /* View */,
 				F8E87E30226F2CBF00B5F70F /* AppDelegate.swift */,
@@ -106,6 +132,8 @@
 		F8E87E47226F44B200B5F70F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F863A8F5226F97B200B5F489 /* Country.swift */,
+				F863A8F7226F97F300B5F489 /* City.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,12 +262,20 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Client-iOS/Pods-Client-iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bond/Bond.framework",
+				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bond.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,7 +294,11 @@
 				F8E87E4A226F553D00B5F70F /* ChildView.swift in Sources */,
 				F8E87E4C226F596600B5F70F /* MapView.swift in Sources */,
 				F8E87E46226F426300B5F70F /* InfoView.swift in Sources */,
+				F863A8F6226F97B200B5F489 /* Country.swift in Sources */,
+				F8507AF722700C4200595A87 /* CitiesViewModel.swift in Sources */,
 				F8E87E31226F2CBF00B5F70F /* AppDelegate.swift in Sources */,
+				F8507AF922700EA200595A87 /* RemoteData.swift in Sources */,
+				F863A8F8226F97F300B5F489 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

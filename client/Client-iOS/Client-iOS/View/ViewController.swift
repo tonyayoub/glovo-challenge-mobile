@@ -14,10 +14,13 @@ import GoogleMaps
 
 class ViewController: UIViewController {
 
+    var viewModel = CitiesViewModel()
     var infoView = InfoView()
     var mapView = MKMapView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeViews()
+        initializeViewModel()
         createGoogleMap()
 //        addViews()
 //        adjustLayouts()
@@ -27,6 +30,13 @@ class ViewController: UIViewController {
        // adjustLayouts()
     }
     
+    func initializeViews() {
+        
+    }
+    
+    func initializeViewModel() {
+        viewModel.downloadInitialData()
+    }
     func addViews() {
         view.addSubview(mapView)
         view.addSubview(infoView)

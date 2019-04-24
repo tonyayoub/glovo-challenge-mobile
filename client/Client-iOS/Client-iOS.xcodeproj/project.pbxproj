@@ -10,6 +10,7 @@
 		356699EB5BA9DEA34586B0DC /* Pods_Client_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6159541DE904E932C9FB6F /* Pods_Client_iOS.framework */; };
 		F8507AF722700C4200595A87 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF622700C4200595A87 /* CitiesViewModel.swift */; };
 		F8507AF922700EA200595A87 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF822700EA200595A87 /* RemoteData.swift */; };
+		F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AFA227057DB00595A87 /* CityDetails.swift */; };
 		F863A8F6226F97B200B5F489 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863A8F5226F97B200B5F489 /* Country.swift */; };
 		F863A8F8226F97F300B5F489 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863A8F7226F97F300B5F489 /* City.swift */; };
 		F8E87E31226F2CBF00B5F70F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E87E30226F2CBF00B5F70F /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 		DD6159541DE904E932C9FB6F /* Pods_Client_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8507AF622700C4200595A87 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		F8507AF822700EA200595A87 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
+		F8507AFA227057DB00595A87 /* CityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetails.swift; sourceTree = "<group>"; };
 		F863A8F5226F97B200B5F489 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		F863A8F7226F97F300B5F489 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F8E87E2D226F2CBF00B5F70F /* Client-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Client-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 			children = (
 				F863A8F5226F97B200B5F489 /* Country.swift */,
 				F863A8F7226F97F300B5F489 /* City.swift */,
+				F8507AFA227057DB00595A87 /* CityDetails.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,7 +265,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Client-iOS/Pods-Client-iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bond/Bond.framework",
 				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
@@ -272,7 +274,6 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bond.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
@@ -293,6 +294,7 @@
 				F8E87E33226F2CBF00B5F70F /* ViewController.swift in Sources */,
 				F8E87E4A226F553D00B5F70F /* ChildView.swift in Sources */,
 				F8E87E4C226F596600B5F70F /* MapView.swift in Sources */,
+				F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */,
 				F8E87E46226F426300B5F70F /* InfoView.swift in Sources */,
 				F863A8F6226F97B200B5F489 /* Country.swift in Sources */,
 				F8507AF722700C4200595A87 /* CitiesViewModel.swift in Sources */,

@@ -8,14 +8,9 @@
 
 import Foundation
 struct City: Codable {
-    var name = ""
-    var code = ""
-    var currency = ""
-    var time_zone = ""
-    var language_code = ""
-    var country_code = ""
     var working_area = [String]()
-    var enabled = true
-    var busy = false
+    var code = ""
+    var name = ""
+    var country_code = ""
     
 }

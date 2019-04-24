@@ -10,5 +10,4 @@ import Foundation
 struct Country: Codable {
     var name = ""
     var code = ""
-    var cities = [City]()
 }

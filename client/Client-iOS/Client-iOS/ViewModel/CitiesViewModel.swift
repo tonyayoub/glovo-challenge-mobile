@@ -7,13 +7,32 @@
 //
 
 import Foundation
+import ReactiveKit
 
 class CitiesViewModel {
     var allCountries = [Country]()
     var selectedCountry: Country?
     var selectedCity: City?
+    let bag = DisposeBag()
     
     func downloadInitialData() {
-        RemoteData.shared.downloadCountriesAndCities()
+        RemoteData.shared.downloadCountries()
+            .observe { (element) in
+                if let list = element.element {
+                    self.allCountries = list
+                    print(self.allCountries.map({ (country) -> String in
+                        return country.name
+                    }))
+                }
+            }.dispose(in: bag)
+        
+        
+        RemoteData.shared.downloadCities()
+            .observe { (element) in
+                if let list = element.element {
+                    print(list)
+                }
+            }.dispose(in: bag)
+        
     }
 }

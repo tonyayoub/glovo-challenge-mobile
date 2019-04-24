@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.8.2)
   - Bond (7.4.3):
     - Differ (~> 1.3)
     - ReactiveKit (~> 3.10)
@@ -15,7 +14,6 @@ PODS:
   - SnapKit (4.2.0)
 
 DEPENDENCIES:
-  - Alamofire
   - Bond
   - GoogleMaps
   - GooglePlaces
@@ -24,7 +22,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
     - Bond
     - Differ
     - GoogleMaps
@@ -33,7 +30,6 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Bond: 3fd42e5786594704e6499069e9c31f35c7553a71
   Differ: ca4350872e32a1aeedf3d9e2d9e47127833bfa9c
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
@@ -41,6 +37,6 @@ SPEC CHECKSUMS:
   ReactiveKit: af0d53664c2326a03d2c9f92c92a30bbc7f3a9ee
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 3e0c04c2ded6130fbb219ac44c7b3005386dda46
+PODFILE CHECKSUM: d46f75b073739845d9263944210a27f6efdf914c
 
 COCOAPODS: 1.5.3

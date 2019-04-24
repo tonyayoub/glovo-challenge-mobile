@@ -14,7 +14,6 @@ import GoogleMaps
 
 class ViewController: UIViewController {
 
-    var viewModel = CitiesViewModel()
     var infoView = InfoView()
     lazy var mapView: GMSMapView = {
         // Create a GMSCameraPosition that tells the map to display the
@@ -41,11 +40,12 @@ class ViewController: UIViewController {
     }
     
     func initializeViews() {
-        
+        infoView.selectCity.addTarget(self, action: #selector(self.pressButton(_:)), for: .touchUpInside)
+
     }
     
     func initializeViewModel() {
-        viewModel.downloadInitialData()
+        CitiesViewModel.shared.downloadInitialData()
     }
     func addViews() {
         view.addSubview(mapView)
@@ -68,19 +68,14 @@ class ViewController: UIViewController {
             
         }
     }
-    
+    //The target function
+    @objc func pressButton(_ sender: UIButton) {
+        showCityPicker()
+    }
     func showCityPicker() {
-        let vc = SelectCityViewController()
-        vc.preferredContentSize = CGSize(width: 250,height: 300)
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
-//        pickerView.delegate = self
-//        pickerView.dataSource = self
-        vc.view.addSubview(pickerView)
-        let editRadiusAlert = UIAlertController(title: "Choose distance", message: "", preferredStyle: UIAlertController.Style.alert)
-        editRadiusAlert.setValue(vc, forKey: "contentViewController")
-        editRadiusAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: nil))
-        editRadiusAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(editRadiusAlert, animated: true)
+        let pickCityAlert = CityPickerAlertController(title: "Choose City", message: "", preferredStyle: UIAlertController.Style.alert)
+        self.present(pickCityAlert, animated: true)
+
     }
     
     func createGoogleMap() -> GMSMapView{

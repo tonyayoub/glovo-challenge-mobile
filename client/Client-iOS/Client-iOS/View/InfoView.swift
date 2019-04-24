@@ -66,6 +66,7 @@ class InfoView: UIView {
         timeZoneTitle.textAlignment = .center
         languageCodeTitle.text = "Lang:"
         languageCodeTitle.textAlignment = .center
+        
 
     }
     
@@ -167,12 +168,9 @@ class InfoView: UIView {
             make.top.bottom.left.equalTo(selectContainer)
             make.width.equalTo(selectContainer).multipliedBy(0.7)
         }
-        
-        
-        
-        
-       
     }
+    
+
     
 
     

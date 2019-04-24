@@ -12,9 +12,7 @@ import Bond
 
 class RemoteData {
     
-    //Singleton
-    static let shared = RemoteData()
-    private init() {}
+
     
     //URLs
     let urlCountries = URL.init(string: "http://localhost:3000/api/countries/")

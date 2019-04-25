@@ -50,9 +50,18 @@ class ViewController: UIViewController {
         CitiesViewModel.shared.citySubject.observeNext { (city) in
             self.handleCityChanged(newCity: city)
         }.dispose(in: CitiesViewModel.shared.bag)
+        
+        CitiesViewModel.shared.cityDetailsSubject.observeNext { (cityDetails) in
+            self.handleCityDetailsReady(newDetails: cityDetails)
+        }.dispose(in: bag)
     }
     func handleCityChanged(newCity: City) {
         print("city changed to \(newCity.name)")
+        CitiesViewModel.shared.downloadCityDetails(city: newCity)
+    }
+    
+    func handleCityDetailsReady(newDetails: CityDetails) {
+        print("city details ready \(newDetails.name)")
     }
     func addViews() {
         view.addSubview(mapView)

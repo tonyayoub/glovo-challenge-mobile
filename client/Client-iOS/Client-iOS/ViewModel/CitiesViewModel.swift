@@ -12,7 +12,9 @@ import ReactiveKit
 class CitiesViewModel {
     //Singleton
     static let shared = CitiesViewModel()
-    private init() {}
+    private init() {
+        
+    }
     
     //Remote Data
     private var remote = RemoteData()
@@ -20,35 +22,33 @@ class CitiesViewModel {
     
     var allCountries = [Country]()
     var allCities = [City]()
+    var currentCityDetails: CityDetails?
     var currentlySelectedCity: City?
     
     //dispose bag
     let bag = DisposeBag()
     let citySubject = PublishSubject<City, Never>()
+    let cityDetailsSubject = PublishSubject<CityDetails, Never>()
     
     
     
     func downloadInitialData() {
         remote.downloadCountries()
-            .observe { (element) in
-                if let list = element.element {
-                    self.allCountries = list
-                    print(self.allCountries.map({ (country) -> String in
-                        return country.name
-                    }))
-                }
-            }.dispose(in: bag)
-        
+            .observeNext { (countries) in
+            self.allCountries = countries
+        }
+            .dispose(in: bag)
         
         remote.downloadCities()
-            .observe { (element) in
-                if let list = element.element {
-                    self.allCities = list
-                }
-            }.dispose(in: bag)
-        
+            .observeNext { (cities) in
+            self.allCities = cities
+        }
+            .dispose(in: bag)
     }
     
+    func downloadCityDetails(city: City) {
+        cityDetailsSubject.bind(signal: remote.downloadCity(city: city)).dispose(in: bag)
+    }
     func getCitiesForCountry(countryIndex: Int) -> [City] {
         let countryCode = allCountries[countryIndex].code
         return allCities.filter({ (city) -> Bool in

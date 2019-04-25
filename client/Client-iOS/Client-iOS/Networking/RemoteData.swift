@@ -11,16 +11,12 @@ import ReactiveKit
 import Bond
 
 class RemoteData {
-    
-
-    
     //URLs
     let urlCountries = URL.init(string: "http://localhost:3000/api/countries/")
     let urlCities = URL.init(string: "http://localhost:3000/api/cities/")
     
     //URL Strings
-
-    let urlStringOneCity = "http://localhost:3000/api/cities/:"
+    let urlStringOneCity = "http://localhost:3000/api/cities/"
     
     func downloadCountriesAndCities() {
         guard let url = urlCountries else {
@@ -33,17 +29,12 @@ class RemoteData {
                     print(list)
                 }
             }
-
-
         }
-        
         task.resume()
     }
     
-    
-
-    func downloadCountries() -> Signal<[Country], Error> {
-        return Signal<[Country], Error> { [unowned self]observer in
+    func downloadCountries() -> Signal<[Country], Never> {
+        return Signal<[Country], Never> { [unowned self]observer in
             guard let url = self.urlCountries else {
                 return BlockDisposable({
                 })
@@ -60,12 +51,11 @@ class RemoteData {
             return BlockDisposable({
                 task.cancel()
             })
-            
         }
     }
     
-    func downloadCities() -> Signal<[City], Error> {
-        return Signal<[City], Error> { [unowned self]observer in
+    func downloadCities() -> Signal<[City], Never> {
+        return Signal<[City], Never> { [unowned self]observer in
             guard let url = self.urlCities else {
                 return BlockDisposable({
                 })
@@ -82,30 +72,30 @@ class RemoteData {
             return BlockDisposable({
                 task.cancel()
             })
-            
         }
     }
-    func downloadCountriesAndCitiesSignal(){
-        let counter = Signal<Int, Never> { observer in
-            
-            // send first three positive integers
-            observer.next(1)
-            observer.next(2)
-            observer.next(3)
-            // send completed event
-            observer.completed()
-            
+    
+    func downloadCity(city: City) -> Signal<CityDetails, Never> {
+        return Signal<CityDetails, Never> { [unowned self]observer in
+            let urlString = "\(self.urlStringOneCity)\(city.code)"
+            print(urlString)
+            guard let url = URL.init(string: urlString) else {
+                
+                return BlockDisposable({
+                })
+            }
+            let task = URLSession.shared.dataTask(with: url) { (downloadedData, response, error) in
+                if let data = downloadedData {
+                    if let city = try? JSONDecoder().decode(CityDetails.self, from: data) {
+                        observer.next(city)
+                        observer.completed()
+                    }
+                }
+            }
+            task.resume()
             return BlockDisposable({
-                print("block caled ...........!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                task.cancel()
             })
         }
-        
-        let bag = DisposeBag()
-        counter.observe { (event) in
-            print(event.element ?? 0)
-        }.dispose(in: bag)
-        
-        
-        
     }
 }

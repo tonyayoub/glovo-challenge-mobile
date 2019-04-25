@@ -41,7 +41,9 @@ class ViewController: UIViewController {
     }
     
     func initializeViews() {
-        infoView.selectCity.addTarget(self, action: #selector(self.pressButton(_:)), for: .touchUpInside)
+        infoView.selectCity.reactive.controlEvents(.touchUpInside).observeNext {
+            self.showCityPicker()
+        }.dispose(in: bag)
 
     }
     
@@ -76,18 +78,13 @@ class ViewController: UIViewController {
             make.height.equalTo(view).multipliedBy(0.7)
         }
         
-        
         //information panel
         infoView.snp.makeConstraints { (make) in
             make.bottom.right.left.equalTo(view)
             make.top.equalTo(mapView.snp.bottom)
-            
         }
     }
-    //The target function
-    @objc func pressButton(_ sender: UIButton) {
-        showCityPicker()
-    }
+    
     func showCityPicker() {
         let pickCityAlert = CityPickerAlertController(title: "Choose City", message: "", preferredStyle: UIAlertController.Style.alert)
         self.present(pickCityAlert, animated: true)

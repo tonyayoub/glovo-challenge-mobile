@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import Bond
+import ReactiveKit
 
 class InfoView: UIView {
     //uper view
@@ -36,7 +38,7 @@ class InfoView: UIView {
         setup()
         addViews()
         adjustLayouts()
-
+        bindToCityDetails()
     }
     
     override func layoutSubviews() {
@@ -68,6 +70,19 @@ class InfoView: UIView {
         languageCodeTitle.textAlignment = .center
     
 
+    }
+    
+    func bindToCityDetails() {
+        CitiesViewModel.shared.cityDetailsSubject.observeNext { (cityDetails) in
+            DispatchQueue.main.async {
+                self.cityName.text = cityDetails.name
+                self.countryName.text = cityDetails.country_code
+                self.currencyValue.text = cityDetails.currency
+                self.timeZoneValue.text = cityDetails.time_zone
+                self.languageCodeValue.text = cityDetails.language_code
+            }
+
+        }.dispose(in: bag)
     }
     
     func addViews() {

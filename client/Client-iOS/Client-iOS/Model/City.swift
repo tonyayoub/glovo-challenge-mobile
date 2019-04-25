@@ -11,6 +11,5 @@ struct City: Codable {
     var working_area = [String]()
     var code = ""
     var name = ""
-    var country_code = ""
-    
+    var country_code = "" 
 }

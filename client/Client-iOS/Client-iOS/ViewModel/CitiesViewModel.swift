@@ -14,17 +14,19 @@ class CitiesViewModel {
     static let shared = CitiesViewModel()
     private init() {}
     
-    //Network
+    //Remote Data
     private var remote = RemoteData()
     
     
     var allCountries = [Country]()
     var allCities = [City]()
-    var selectedCountry: Country?
-    var selectedCity: City?
+    var currentlySelectedCity: City?
     
-    //ReactiveKit dispose bag
+    //dispose bag
     let bag = DisposeBag()
+    let citySubject = PublishSubject<City, Never>()
+    
+    
     
     func downloadInitialData() {
         remote.downloadCountries()
@@ -52,5 +54,12 @@ class CitiesViewModel {
         return allCities.filter({ (city) -> Bool in
             return city.country_code == countryCode
         })
+    }
+    
+
+    func updateCurrentCity() {
+        if let newCity = currentlySelectedCity {
+            citySubject.on(.next(newCity))
+        }
     }
 }

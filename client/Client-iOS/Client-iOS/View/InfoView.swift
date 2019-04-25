@@ -51,11 +51,11 @@ class InfoView: UIView {
         
         cityName.text = "Barcelona"
         cityName.textAlignment = .center
-        cityName.font = UIFont(name: "Arial", size: 40)
+        cityName.font = UIFont(name: "Optima-Bold", size: 32)
         
         countryName.text = "Spain"
         countryName.textAlignment = .center
-        countryName.font = UIFont(name: "Arial", size: 20)
+        countryName.font = UIFont(name: "Optima-Bold", size: 16)
         selectCity.setTitle("Select City", for: .normal)
         selectCity.setTitleColor(.blue, for: .normal)
         currencyTitle.text = "Curr:"
@@ -66,7 +66,7 @@ class InfoView: UIView {
         timeZoneTitle.textAlignment = .center
         languageCodeTitle.text = "Lang:"
         languageCodeTitle.textAlignment = .center
-        
+    
 
     }
     
@@ -169,13 +169,6 @@ class InfoView: UIView {
             make.width.equalTo(selectContainer).multipliedBy(0.7)
         }
     }
-    
-
-    
-
-    
-
-
 }
 
 

@@ -11,6 +11,7 @@ import CoreLocation
 import MapKit
 import SnapKit
 import GoogleMaps
+import ReactiveKit
 
 class ViewController: UIViewController {
 
@@ -46,6 +47,12 @@ class ViewController: UIViewController {
     
     func initializeViewModel() {
         CitiesViewModel.shared.downloadInitialData()
+        CitiesViewModel.shared.citySubject.observeNext { (city) in
+            self.handleCityChanged(newCity: city)
+        }.dispose(in: CitiesViewModel.shared.bag)
+    }
+    func handleCityChanged(newCity: City) {
+        print("city changed to \(newCity.name)")
     }
     func addViews() {
         view.addSubview(mapView)
@@ -75,7 +82,6 @@ class ViewController: UIViewController {
     func showCityPicker() {
         let pickCityAlert = CityPickerAlertController(title: "Choose City", message: "", preferredStyle: UIAlertController.Style.alert)
         self.present(pickCityAlert, animated: true)
-
     }
     
     func createGoogleMap() -> GMSMapView{

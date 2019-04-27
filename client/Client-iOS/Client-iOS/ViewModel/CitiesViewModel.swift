@@ -8,6 +8,7 @@
 
 import Foundation
 import ReactiveKit
+import GoogleMaps
 
 class CitiesViewModel {
     //Singleton

@@ -17,13 +17,13 @@ class ViewController: UIViewController {
 
     var infoView = InfoView()
     lazy var mapView = MapView()
-    
+    var boundingBoxes = [String: GMSCoordinateBounds]() //city code : bounding box
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeViews()
         addViews()
         adjustLayouts()
-        mapView.test()
         initializeViewModel()
 
 
@@ -70,13 +70,23 @@ class ViewController: UIViewController {
     }
     func handleAllCitiesSummaryDownloaded(cities: [City]) {
         print("all cities downloaded")
-        DispatchQueue.main.async {
-            self.mapView.drawAllCitiesPolygons(cities: cities)
+        for city in cities {
+            boundingBoxes[city.code] = mapView.getBoundingOfPolygons(polyLines: city.working_area)
+            DispatchQueue.main.async {
+                self.mapView.drawPolygons(polyLines: city.working_area)
+            }
         }
+        
     }
     func handleCitySelected(newCity: City) {
         print("city changed to \(newCity.name)")
         CitiesViewModel.shared.downloadCityDetails(city: newCity)
+        if let box = boundingBoxes[newCity.code] {
+            DispatchQueue.main.async {
+                self.mapView.moveCameraToBoundingBox(box: box)
+            }
+        }
+        
     }
     
     func handleCityDetailsReady(newDetails: CityDetails) {

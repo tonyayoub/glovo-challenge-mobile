@@ -21,30 +21,38 @@ class MapView: GMSMapView {
         super.init(coder: aDecoder)
     }
     
-    func test() {
-        showPolygon(encodedPolyline: "c|pvDqfq}DxuAbvEt~Css@iDg{AmP{kBmgAp@")
-    }
-    
 
-    func drawAllCitiesPolygons(cities: [City]) {
-        for city in cities {
-            for polygon in city.working_area {
-                showPolygon(encodedPolyline: polygon)
+    
+    func getBoundingOfPolygons(polyLines: [String]) -> GMSCoordinateBounds {
+        var bounds = GMSCoordinateBounds()
+        
+        for polyLine in polyLines {
+            if let path = GMSPath(fromEncodedPath: polyLine) {
+                bounds = bounds.includingPath(path)
             }
         }
+        return bounds
     }
-    func showPolygon(encodedPolyline: String) {
+    
+    func drawPolygons(polyLines: [String]) {
         
-        guard let path = GMSPath(fromEncodedPath: encodedPolyline) else {
-            return
-        }
-        let polygon = GMSPolygon(path: path)
-        polygon.map = self
-//        let bounds = GMSCoordinateBounds(path: path)
-//        let update = GMSCameraUpdate.fit(bounds)
-//        self.moveCamera(update)
-    }
+        for polyLine in polyLines {
+            if let path = GMSPath(fromEncodedPath: polyLine) {
+                let polygon = GMSPolygon(path: path)
+                polygon.map = self
+            }
 
+        }
+        
+        //        let bounds = GMSCoordinateBounds(path: path)
+        //        let update = GMSCameraUpdate.fit(bounds)
+        //        self.moveCamera(update)
+    }
+    
+    func moveCameraToBoundingBox(box: GMSCoordinateBounds) {
+        let update = GMSCameraUpdate.fit(box)
+        self.moveCamera(update)
+    }
     func getPathFromCoordinates(coordinatesList: [CLLocationCoordinate2D]) -> GMSMutablePath {
         let path = GMSMutablePath()
         for coord in coordinatesList {
@@ -52,7 +60,7 @@ class MapView: GMSMapView {
         }
         return path
     }
-
-
+    
+    
     
 }

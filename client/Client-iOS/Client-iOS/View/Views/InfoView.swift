@@ -31,6 +31,7 @@ class InfoView: UIView {
     var languageCodeValue = UILabel()
     
     var selectCity = UIButton()
+    var currentLocation = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,6 +59,8 @@ class InfoView: UIView {
         countryName.font = UIFont(name: "Optima-Bold", size: 16)
         selectCity.setTitle("Select City", for: .normal)
         selectCity.setTitleColor(.blue, for: .normal)
+        currentLocation.setTitle("Current", for: .normal)
+        currentLocation.setTitleColor(.blue, for: .normal)
         currencyTitle.text = "Curr:"
         currencyTitle.textAlignment = .center
    
@@ -97,6 +100,7 @@ class InfoView: UIView {
         languageContainer.addSubview(languageCodeTitle)
         languageContainer.addSubview(languageCodeValue)
         selectContainer.addSubview(selectCity)
+        selectContainer.addSubview(currentLocation)
     }
     
     func adjustLayouts() {
@@ -173,8 +177,12 @@ class InfoView: UIView {
         }
         
         selectCity.snp.makeConstraints { (make) in
-            make.top.bottom.left.equalTo(selectContainer)
-            make.width.equalTo(selectContainer).multipliedBy(0.7)
+            make.top.left.bottom.equalTo(selectContainer)
+            make.width.equalTo(selectContainer).multipliedBy(0.5)
+        }
+        currentLocation.snp.makeConstraints { (make) in
+            make.top.right.bottom.equalTo(selectContainer)
+            make.left.equalTo(selectCity.snp.right)
         }
     }
 }

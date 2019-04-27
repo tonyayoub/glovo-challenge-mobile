@@ -27,27 +27,36 @@ class CitiesViewModel {
     
     //dispose bag
     let bag = DisposeBag()
-    let citySubject = PublishSubject<City, Never>()
-    let cityDetailsSubject = PublishSubject<CityDetails, Never>()
+    
+    //Subjects - keep being updated
+    let summaryOfAllCitiesDownloaded = PublishSubject<[City], Never>()
+    let citySelected = PublishSubject<City, Never>()
+    let cityDetailsDownloaded = PublishSubject<CityDetails, Never>()
     
     
     
     func downloadInitialData() {
+        //simulate slow connection
+        //sleep(5)
+        
         remote.downloadCountries()
             .observeNext { (countries) in
             self.allCountries = countries
         }
             .dispose(in: bag)
         
+  
         remote.downloadCities()
             .observeNext { (cities) in
             self.allCities = cities
+            self.summaryOfAllCitiesDownloaded.on(.next(cities)) //notifies observers about new event
         }
             .dispose(in: bag)
     }
     
     func downloadCityDetails(city: City) {
-        cityDetailsSubject.bind(signal: remote.downloadCity(city: city)).dispose(in: bag)
+        //bind the city details Subject to a city details Signal returned from Remote.DownloadCity
+        cityDetailsDownloaded.bind(signal: remote.downloadCity(city: city)).dispose(in: bag)
     }
     func getCitiesForCountry(countryIndex: Int) -> [City] {
         let countryCode = allCountries[countryIndex].code
@@ -59,7 +68,7 @@ class CitiesViewModel {
 
     func updateCurrentCity() {
         if let newCity = currentlySelectedCity {
-            citySubject.on(.next(newCity))
+            citySelected.on(.next(newCity))
         }
     }
 }

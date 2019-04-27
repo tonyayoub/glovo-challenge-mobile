@@ -9,4 +9,5 @@ target 'Client-iOS' do
   pod 'GooglePlaces'
   pod 'ReactiveKit'
   pod 'Bond'
+
 end

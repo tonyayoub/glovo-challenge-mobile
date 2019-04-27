@@ -11,27 +11,20 @@ import ReactiveKit
 import Bond
 
 class RemoteData {
-    //URLs
+    
+    #if targetEnvironment(simulator)
     let urlCountries = URL.init(string: "http://localhost:3000/api/countries/")
     let urlCities = URL.init(string: "http://localhost:3000/api/cities/")
-    
-    //URL Strings
     let urlStringOneCity = "http://localhost:3000/api/cities/"
+    #else
+    //URLs
+    let urlCountries = URL.init(string: "http://192.168.43.126:3000/api/countries/")
+    let urlCities = URL.init(string: "http://192.168.43.126:3000/api/cities/")
+    let urlStringOneCity = "http://192.168.43.126:3000/api/cities/"
+    #endif
+
     
-    func downloadCountriesAndCities() {
-        guard let url = urlCountries else {
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { (downloadedData, response, error) in
-            if let data = downloadedData {
-                print(String.init(data: data, encoding: .ascii) ?? "no data")
-                if let list = try? JSONDecoder().decode([Country].self, from: data) {
-                    print(list)
-                }
-            }
-        }
-        task.resume()
-    }
+
     
     func downloadCountries() -> Signal<[Country], Never> {
         return Signal<[Country], Never> { [unowned self]observer in

@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         adjustLayouts()
         initializeViewModel()
         initializeLocation()
+        initializeMap()
     }
     override func viewDidLayoutSubviews() {
        // adjustLayouts()
@@ -101,7 +102,8 @@ class ViewController: UIViewController {
             self.present(pickCityAlert, animated: true)
         }
         else {
-            print("Downloading cities data")
+            showConnectionError()
+            CitiesViewModel.shared.downloadInitialData()
         }
     }
     
@@ -111,6 +113,12 @@ class ViewController: UIViewController {
             self.showCityPicker()
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func showConnectionError() {
+        let alert = UIAlertController(title: "Connection Error", message: "Remote data not available", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
 }

@@ -14,6 +14,7 @@ class MapView: GMSMapView {
     init() {
         let camera = GMSCameraPosition.camera(withLatitude: 41.39440574740914, longitude: 2.146495096385479, zoom: 12.083862)
         super.init(frame: CGRect.zero, camera: camera)
+        drawMarkerInLocation(loc: camera.target)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +51,13 @@ class MapView: GMSMapView {
             path.add(coord)
         }
         return path
+    }
+    
+    func drawMarkerInLocation(loc: CLLocationCoordinate2D) {
+        let position = CLLocationCoordinate2D(latitude: 41.39440574740914, longitude: 2.146495096385479)
+        let marker = GMSMarker(position: position)
+        marker.title = "Hello World"
+        marker.map = self
     }
     
     

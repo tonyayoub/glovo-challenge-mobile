@@ -12,6 +12,7 @@
 		F8080D12227479DA00156AE8 /* ViewController+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8080D11227479DA00156AE8 /* ViewController+CLLocationManagerDelegate.swift */; };
 		F8080D1422747AEC00156AE8 /* CitySelectionHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8080D1322747AEC00156AE8 /* CitySelectionHandling.swift */; };
 		F8080D1622747B5600156AE8 /* ViewController+CitySelectionHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8080D1522747B5600156AE8 /* ViewController+CitySelectionHandling.swift */; };
+		F8080D182274970300156AE8 /* ViewController+GMSMapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8080D172274970300156AE8 /* ViewController+GMSMapViewDelegate.swift */; };
 		F8507AF722700C4200595A87 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF622700C4200595A87 /* CitiesViewModel.swift */; };
 		F8507AF922700EA200595A87 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF822700EA200595A87 /* RemoteData.swift */; };
 		F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AFA227057DB00595A87 /* CityDetails.swift */; };
@@ -34,6 +35,7 @@
 		F8080D11227479DA00156AE8 /* ViewController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
 		F8080D1322747AEC00156AE8 /* CitySelectionHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionHandling.swift; sourceTree = "<group>"; };
 		F8080D1522747B5600156AE8 /* ViewController+CitySelectionHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CitySelectionHandling.swift"; sourceTree = "<group>"; };
+		F8080D172274970300156AE8 /* ViewController+GMSMapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+GMSMapViewDelegate.swift"; sourceTree = "<group>"; };
 		F8507AF622700C4200595A87 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		F8507AF822700EA200595A87 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		F8507AFA227057DB00595A87 /* CityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetails.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				F8080D1522747B5600156AE8 /* ViewController+CitySelectionHandling.swift */,
 				F8507B012270BC6D00595A87 /* CityPickerAlertController.swift */,
 				F8080D1322747AEC00156AE8 /* CitySelectionHandling.swift */,
+				F8080D172274970300156AE8 /* ViewController+GMSMapViewDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				F8507B022270BC6D00595A87 /* CityPickerAlertController.swift in Sources */,
 				F8E87E4C226F596600B5F70F /* MapView.swift in Sources */,
 				F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */,
+				F8080D182274970300156AE8 /* ViewController+GMSMapViewDelegate.swift in Sources */,
 				F8E87E46226F426300B5F70F /* InfoView.swift in Sources */,
 				F8080D1622747B5600156AE8 /* ViewController+CitySelectionHandling.swift in Sources */,
 				F863A8F6226F97B200B5F489 /* Country.swift in Sources */,

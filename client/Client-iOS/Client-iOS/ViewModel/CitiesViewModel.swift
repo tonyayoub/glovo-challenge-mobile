@@ -8,33 +8,58 @@
 
 import Foundation
 import ReactiveKit
+import CoreLocation
 import GoogleMaps
 
 class CitiesViewModel {
     //Singleton
     static let shared = CitiesViewModel()
     private init() {
-        
     }
     
-    //Remote Data
     private var remote = RemoteData()
-    
-    
-    var allCountries = [Country]()
-    var allCities = [City]()
-    var currentCityDetails: CityDetails?
-    var currentlySelectedCity: City?
-    
+    private var temp = TempData()
+
     //dispose bag
     let bag = DisposeBag()
     
-    //Subjects - keep being updated
+    //Subjects
     let summaryOfAllCitiesDownloaded = PublishSubject<[City], Never>()
     let citySelected = PublishSubject<City, Never>()
     let cityDetailsDownloaded = PublishSubject<CityDetails, Never>()
     
+    //Properties to access Data
+    var cities: [City] {
+        return temp.allCities
+    }
     
+    var countries: [Country] {
+        return temp.allCountries
+    }
+    
+    var countryNames: [String] {
+        return temp.allCountries.map {
+            $0.name
+        }
+    }
+    
+    var pickedCity: City? {
+        get {
+            return temp.currentlySelectedCity
+        }
+        set {
+            temp.currentlySelectedCity = newValue
+        }
+    }
+    
+    var citiesBoundaries: [String: GMSCoordinateBounds] {
+        get {
+            return temp.boundingBoxes
+        }
+        set {
+            temp.boundingBoxes = newValue
+        }
+    }
     
     func downloadInitialData() {
         //simulate slow connection
@@ -42,14 +67,14 @@ class CitiesViewModel {
         
         remote.downloadCountries()
             .observeNext { (countries) in
-            self.allCountries = countries
+            self.temp.allCountries = countries
         }
             .dispose(in: bag)
         
   
         remote.downloadCities()
             .observeNext { (cities) in
-            self.allCities = cities
+            self.temp.allCities = cities
             self.summaryOfAllCitiesDownloaded.on(.next(cities)) //notifies observers about new event
         }
             .dispose(in: bag)
@@ -59,17 +84,35 @@ class CitiesViewModel {
         //bind the city details Subject to a city details Signal returned from Remote.DownloadCity
         cityDetailsDownloaded.bind(signal: remote.downloadCity(city: city)).dispose(in: bag)
     }
+    func changePickedCity(countryIndex: Int, cityIndex: Int) {
+        temp.currentlySelectedCity = getCitiesForCountry(countryIndex: countryIndex)[cityIndex]
+    }
     func getCitiesForCountry(countryIndex: Int) -> [City] {
-        let countryCode = allCountries[countryIndex].code
-        return allCities.filter({ (city) -> Bool in
+        let countryCode = temp.allCountries[countryIndex].code
+        return temp.allCities.filter({ (city) -> Bool in
             return city.country_code == countryCode
         })
     }
     
-
     func updateCurrentCity() {
-        if let newCity = currentlySelectedCity {
+        if let newCity = temp.currentlySelectedCity {
             citySelected.on(.next(newCity))
         }
     }
+    
+    func getCityWithWorkingAreaContainingLocation(loc: CLLocationCoordinate2D) -> City? {
+        var res: City? = nil
+        for cityCode in temp.boundingBoxes.keys {
+            if let box = temp.boundingBoxes[cityCode] {
+                if box.contains(loc) {
+                    res = temp.allCities.filter({ (city) -> Bool in
+                        city.code == cityCode
+                    }).first
+                }
+            }
+        }
+        return res
+    }
+    
+    
 }

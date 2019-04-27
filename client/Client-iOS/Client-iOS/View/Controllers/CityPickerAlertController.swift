@@ -56,7 +56,7 @@ extension CityPickerAlertController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return CitiesViewModel.shared.allCountries.count
+            return CitiesViewModel.shared.countries.count
         case 1:
             let cities = CitiesViewModel.shared.getCitiesForCountry(countryIndex: pickerView.selectedRow(inComponent: 0))
             return cities.count
@@ -79,16 +79,13 @@ extension CityPickerAlertController: UIPickerViewDelegate {
     }
 }
 func updateSelectedCountryAndCity(countryIndex: Int, cityIndex: Int) {
-    CitiesViewModel.shared.currentlySelectedCity = CitiesViewModel.shared.getCitiesForCountry(countryIndex: countryIndex)[cityIndex]
+    CitiesViewModel.shared.changePickedCity(countryIndex: countryIndex, cityIndex: cityIndex)
 }
 extension CityPickerAlertController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            let names = CitiesViewModel.shared.allCountries.map { (country) -> String in
-                return country.name
-            }
-            return names[row]
+            return CitiesViewModel.shared.countryNames[row]
         case 1:
             citiesInSelectedCountry = CitiesViewModel.shared.getCitiesForCountry(countryIndex: countryPicker.selectedRow(inComponent: 0))
             return citiesInSelectedCountry[row].name

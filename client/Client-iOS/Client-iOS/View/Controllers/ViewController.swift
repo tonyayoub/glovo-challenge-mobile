@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreLocation
-import MapKit
-import SnapKit
 import GoogleMaps
 import ReactiveKit
 
@@ -17,7 +15,7 @@ class ViewController: UIViewController {
 
     var infoView = InfoView()
     lazy var mapView = MapView()
-    var boundingBoxes = [String: GMSCoordinateBounds]() //city code : bounding box
+    var locationManager: CLLocationManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +23,8 @@ class ViewController: UIViewController {
         addViews()
         adjustLayouts()
         initializeViewModel()
-
-
+        initializeLocation()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        showCityPicker()
-    }
-    
     override func viewDidLayoutSubviews() {
        // adjustLayouts()
     }
@@ -41,9 +33,19 @@ class ViewController: UIViewController {
         infoView.selectCity.reactive.controlEvents(.touchUpInside).observeNext {
             self.showCityPicker()
         }.dispose(in: bag)
-
     }
     
+    func initializeLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager?.startUpdatingLocation()
+        }
+        else {
+            locationManager?.requestWhenInUseAuthorization()
+        }
+    }
     func initializeViewModel() {
         DispatchQueue.global().async {
             CitiesViewModel.shared.downloadInitialData()
@@ -71,22 +73,22 @@ class ViewController: UIViewController {
     func handleAllCitiesSummaryDownloaded(cities: [City]) {
         print("all cities downloaded")
         for city in cities {
-            boundingBoxes[city.code] = mapView.getBoundingOfPolygons(polyLines: city.working_area)
+            CitiesViewModel.shared.citiesBoundaries[city.code] = mapView.getBoundingOfPolygons(polyLines: city.working_area)
             DispatchQueue.main.async {
                 self.mapView.drawPolygons(polyLines: city.working_area)
             }
         }
         
     }
+    
     func handleCitySelected(newCity: City) {
         print("city changed to \(newCity.name)")
         CitiesViewModel.shared.downloadCityDetails(city: newCity)
-        if let box = boundingBoxes[newCity.code] {
+        if let box = CitiesViewModel.shared.citiesBoundaries[newCity.code] {
             DispatchQueue.main.async {
                 self.mapView.moveCameraToBoundingBox(box: box)
             }
         }
-        
     }
     
     func handleCityDetailsReady(newDetails: CityDetails) {
@@ -101,7 +103,6 @@ class ViewController: UIViewController {
     }
     
     func adjustLayouts() {
-       
         //map view
         mapView.snp.makeConstraints { (make) in
             make.top.right.left.equalTo(view)
@@ -116,15 +117,43 @@ class ViewController: UIViewController {
     }
     
     func showCityPicker() {
-
         let pickCityAlert = CityPickerAlertController(title: "Choose City", message: "", preferredStyle: UIAlertController.Style.alert)
-        if CitiesViewModel.shared.allCities.count >= 1 {
+        if CitiesViewModel.shared.cities.count >= 1 {
             self.present(pickCityAlert, animated: true)
         }
         else {
             print("Connection Error")
         }
     }
+}
 
+extension ViewController: CLLocationManagerDelegate {
+    
+    // Handle incoming location events.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        let loc2D = location.coordinate
+        print(loc2D)
+        if let city = CitiesViewModel.shared.getCityWithWorkingAreaContainingLocation(loc: loc2D) {
+            handleCitySelected(newCity: city)
+        }
+    }
+    
+    // Handle authorization for the location manager.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        case .notDetermined:
+            print("Location status is unknown.")
+        @unknown default:
+            print("Location status not determined.")
+        }
+    }
 
 }

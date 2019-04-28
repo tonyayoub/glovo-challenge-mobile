@@ -68,7 +68,6 @@ class ViewController: UIViewController {
         }.dispose(in: bag)
         
         locationChanged.observeNext { (loc) in
-            print("observed location: \(loc)")
             self.currentLocation = loc
             if !self.currentLocationDisplayedAtStartUp {
                 self.displayCurrentLocation()

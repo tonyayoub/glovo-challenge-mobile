@@ -10,6 +10,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (3.1.0):
     - GoogleMaps/Base (= 3.1.0)
+  - MKPolygon-GPC (0.0.1)
   - ReactiveKit (3.10.0)
   - SnapKit (4.2.0)
 
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - Bond
   - GoogleMaps
   - GooglePlaces
+  - MKPolygon-GPC (~> 0.0.1)
   - ReactiveKit
   - SnapKit (~> 4.0)
 
@@ -26,6 +28,7 @@ SPEC REPOS:
     - Differ
     - GoogleMaps
     - GooglePlaces
+    - MKPolygon-GPC
     - ReactiveKit
     - SnapKit
 
@@ -34,9 +37,10 @@ SPEC CHECKSUMS:
   Differ: ca4350872e32a1aeedf3d9e2d9e47127833bfa9c
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
+  MKPolygon-GPC: 998ab3e682212e2aeb6ecced9b4361d156f8873a
   ReactiveKit: af0d53664c2326a03d2c9f92c92a30bbc7f3a9ee
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 094b204a7e3da4ab49cf3b0521e3c75efd751af7
+PODFILE CHECKSUM: 817caca98c3ee7b21215f4abb96d8cb5403b8c97
 
 COCOAPODS: 1.5.3

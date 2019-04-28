@@ -34,20 +34,29 @@ class CityTableAlertController: UIAlertController {
     func setup() {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 300)
-//        countryTable.delegate = self
+        countryTable.delegate = self
         countryTable.dataSource = self
         countryTable.register(UITableViewCell.self, forCellReuseIdentifier: "CityCell")
         vc.view.addSubview(countryTable)
         
         self.setValue(vc, forKey: "contentViewController")
         self.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
-            CitiesViewModel.shared.updateCurrentCity()
+            guard let countryIndex = self.countryTable.indexPathForSelectedRow?.section,
+                let cityIndex = self.countryTable.indexPathForSelectedRow?.row else {
+                    return
+            }
+            let city = CitiesViewModel.shared.getCitiesForCountry(countryIndex: countryIndex)[cityIndex]
+            CitiesViewModel.shared.updateCurrentCity(newCity: city)
         }))
         self.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     }
-    
-    
-    
+}
+
+extension CityTableAlertController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let city = CitiesViewModel.shared.getCitiesForCountry(countryIndex: indexPath.section)[indexPath.row]
+        print(city.name)
+    }
 }
 
 extension CityTableAlertController: UITableViewDataSource {
@@ -55,9 +64,11 @@ extension CityTableAlertController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return CitiesViewModel.shared.countries.count
     }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return CitiesViewModel.shared.countries[section].name
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CitiesViewModel.shared.getCitiesForCountry(countryIndex: section).count
     }

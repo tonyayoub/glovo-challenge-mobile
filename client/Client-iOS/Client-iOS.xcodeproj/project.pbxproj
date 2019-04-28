@@ -16,7 +16,6 @@
 		F8507AF722700C4200595A87 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF622700C4200595A87 /* CitiesViewModel.swift */; };
 		F8507AF922700EA200595A87 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AF822700EA200595A87 /* RemoteData.swift */; };
 		F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507AFA227057DB00595A87 /* CityDetails.swift */; };
-		F8507B022270BC6D00595A87 /* CityPickerAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8507B012270BC6D00595A87 /* CityPickerAlertController.swift */; };
 		F863A8F6226F97B200B5F489 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863A8F5226F97B200B5F489 /* Country.swift */; };
 		F863A8F8226F97F300B5F489 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863A8F7226F97F300B5F489 /* City.swift */; };
 		F8E87E31226F2CBF00B5F70F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E87E30226F2CBF00B5F70F /* AppDelegate.swift */; };
@@ -40,7 +39,6 @@
 		F8507AF622700C4200595A87 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		F8507AF822700EA200595A87 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		F8507AFA227057DB00595A87 /* CityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetails.swift; sourceTree = "<group>"; };
-		F8507B012270BC6D00595A87 /* CityPickerAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPickerAlertController.swift; sourceTree = "<group>"; };
 		F863A8F5226F97B200B5F489 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		F863A8F7226F97F300B5F489 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F8E87E2D226F2CBF00B5F70F /* Client-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Client-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,10 +104,9 @@
 				F8E87E32226F2CBF00B5F70F /* ViewController.swift */,
 				F8080D11227479DA00156AE8 /* ViewController+CLLocationManagerDelegate.swift */,
 				F8080D1522747B5600156AE8 /* ViewController+CitySelectionHandling.swift */,
-				F8F9CCBA22755FF30078429F /* CityTableAlertController.swift */,
-				F8507B012270BC6D00595A87 /* CityPickerAlertController.swift */,
-				F8080D1322747AEC00156AE8 /* CitySelectionHandling.swift */,
 				F8080D172274970300156AE8 /* ViewController+GMSMapViewDelegate.swift */,
+				F8F9CCBA22755FF30078429F /* CityTableAlertController.swift */,
+				F8080D1322747AEC00156AE8 /* CitySelectionHandling.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -301,6 +298,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Client-iOS/Pods-Client-iOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bond/Bond.framework",
 				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
+				"${BUILT_PRODUCTS_DIR}/MKPolygon-GPC/MKPolygon_GPC.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
@@ -310,6 +308,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bond.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MKPolygon_GPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
@@ -328,7 +327,6 @@
 				F8E87E33226F2CBF00B5F70F /* ViewController.swift in Sources */,
 				F8080D1422747AEC00156AE8 /* CitySelectionHandling.swift in Sources */,
 				F8080D12227479DA00156AE8 /* ViewController+CLLocationManagerDelegate.swift in Sources */,
-				F8507B022270BC6D00595A87 /* CityPickerAlertController.swift in Sources */,
 				F8E87E4C226F596600B5F70F /* MapView.swift in Sources */,
 				F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */,
 				F8F9CCBB22755FF30078429F /* CityTableAlertController.swift in Sources */,

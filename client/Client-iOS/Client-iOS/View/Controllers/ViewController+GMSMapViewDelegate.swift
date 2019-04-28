@@ -15,6 +15,15 @@ extension ViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        print(mapView.camera.zoom)
+        if let map = mapView as? MapView {
+            map.showAllMarkers(hide: (mapView.camera.zoom > 8))
+        }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        if let city = marker.userData as? City {
+            handleCitySelected(newCity: city)
+        }
+        return true
     }
 }

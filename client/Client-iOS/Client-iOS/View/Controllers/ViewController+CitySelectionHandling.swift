@@ -10,15 +10,20 @@ import Foundation
 extension ViewController: CitySelectionHandling {
     func handleAllCitiesSummaryDownloaded(cities: [City]) {
         print("all cities downloaded")
+        DispatchQueue.main.async {
+            self.mapView.clear()
+        }
         for city in cities {
-            CitiesViewModel.shared.citiesBoundaries[city.code] = mapView.getBoundingOfPolygons(polyLines: city.working_area)
+            let cityBounds = mapView.getBoundingOfPolygons(polyLines: city.working_area)
+            CitiesViewModel.shared.citiesBoundaries[city.code] = cityBounds
             DispatchQueue.main.async {
+                self.mapView.drawMarkerAtCenterOfBounds(box: cityBounds, title: city.name, data: city)
                 self.mapView.drawPolygons(polyLines: city.working_area)
             }
+
         }
-        
     }
-    
+ 
     func handleCitySelected(newCity: City) {
         print("city changed to \(newCity.name)")
         CitiesViewModel.shared.downloadCityDetails(city: newCity)

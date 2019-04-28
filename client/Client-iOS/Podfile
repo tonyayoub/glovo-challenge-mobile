@@ -9,5 +9,5 @@ target 'Client-iOS' do
   pod 'GooglePlaces'
   pod 'ReactiveKit'
   pod 'Bond'
-
+  pod 'MKPolygon-GPC', '~> 0.0.1'
 end

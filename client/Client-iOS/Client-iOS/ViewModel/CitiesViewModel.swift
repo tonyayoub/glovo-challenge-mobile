@@ -100,10 +100,8 @@ class CitiesViewModel {
         })
     }
     
-    func updateCurrentCity() {
-        if let newCity = temp.currentlySelectedCity {
-            citySelected.on(.next(newCity))
-        }
+    func updateCurrentCity(newCity: City) {
+        citySelected.on(.next(newCity))
     }
     
     func getCountryWithCode(code: String) -> Country? {

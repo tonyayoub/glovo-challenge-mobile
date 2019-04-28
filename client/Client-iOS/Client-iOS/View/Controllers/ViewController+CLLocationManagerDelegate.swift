@@ -27,6 +27,7 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             locationChanged.on(.next(location.coordinate))
+            print("location changed to \(location.coordinate)")
         }
     }
     

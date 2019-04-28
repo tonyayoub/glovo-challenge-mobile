@@ -16,7 +16,7 @@ extension ViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         if let map = mapView as? MapView {
-            map.showAllMarkers(hide: (mapView.camera.zoom > 8))
+            map.showAllMarkers(hide: (mapView.camera.zoom > 10))
         }
     }
     

@@ -12,7 +12,7 @@ import CoreLocation
 import GoogleMaps
 
 class CitiesViewModel {
-    //Singleton
+    //Singleton to be accessible to both ViewController and CityTableViewController
     static let shared = CitiesViewModel()
     private init() {
     }
@@ -42,6 +42,11 @@ class CitiesViewModel {
             $0.name
         }
     }
+    
+    var citiesDictionary: [Country: [City]] {
+        return temp.countriesAndCities
+    }
+    
     
     var pickedCity: City? {
         get {
@@ -75,6 +80,7 @@ class CitiesViewModel {
         remote.downloadCities()
             .observeNext { (cities) in
             self.temp.allCities = cities
+            self.fillDictionary()
             self.summaryOfAllCitiesDownloaded.on(.next(cities)) //notifies observers about new event
         }
             .dispose(in: bag)
@@ -100,6 +106,27 @@ class CitiesViewModel {
         }
     }
     
+    func getCountryWithCode(code: String) -> Country? {
+        return temp.allCountries.filter{ country in
+            country.code == code
+        }.first
+    }
+    
+    func fillDictionary() {
+        for city in temp.allCities {
+            if let cityCountry = getCountryWithCode(code: city.country_code) {
+                if let _ = temp.countriesAndCities[cityCountry] {
+                    temp.countriesAndCities[cityCountry]?.append(city)
+                }
+                else { //new country will be inserted
+                    var newCitiesList = [City]()
+                    newCitiesList.append(city)
+                    temp.countriesAndCities[cityCountry] = newCitiesList
+                }
+            }
+            
+        }
+    }
     func getCityWithWorkingAreaContainingLocation(loc: CLLocationCoordinate2D) -> City? {
         var res: City? = nil
         for cityCode in temp.boundingBoxes.keys {
@@ -113,6 +140,4 @@ class CitiesViewModel {
         }
         return res
     }
-    
-    
 }

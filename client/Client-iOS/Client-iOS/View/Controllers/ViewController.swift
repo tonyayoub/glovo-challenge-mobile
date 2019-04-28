@@ -97,7 +97,7 @@ class ViewController: UIViewController {
     }
 
     func showCityPicker() {
-        let pickCityAlert = CityPickerAlertController(title: "Choose City", message: "", preferredStyle: UIAlertController.Style.alert)
+        let pickCityAlert = CityTableAlertController(title: "Choose City", message: "", preferredStyle: UIAlertController.Style.alert)
         if CitiesViewModel.shared.cities.count >= 1 {
             self.present(pickCityAlert, animated: true)
         }

@@ -115,7 +115,7 @@ class InfoView: UIView {
         }
         countryName.snp.makeConstraints { (make) in
             make.left.bottom.width.equalTo(upperContainer)
-            make.height.equalTo(upperContainer).multipliedBy(0.4)
+            make.height.equalTo(upperContainer).multipliedBy(0.3)
 
         }
      

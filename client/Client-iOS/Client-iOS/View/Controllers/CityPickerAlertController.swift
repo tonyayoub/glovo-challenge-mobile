@@ -11,9 +11,9 @@ import UIKit
 class CityPickerAlertController: UIAlertController {
     let countryPicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
     var citiesInSelectedCountry = [City]()
-
     
-
+    
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -45,7 +45,7 @@ class CityPickerAlertController: UIAlertController {
         self.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     }
     
-
+    
 }
 
 extension CityPickerAlertController: UIPickerViewDelegate {
@@ -68,19 +68,23 @@ extension CityPickerAlertController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //selecting a country
         if component == 0 {
-
+            
             pickerView.reloadComponent(1)
             updateSelectedCountryAndCity(countryIndex: row, cityIndex: 0)
         }
-        //selecting a city
+            //selecting a city
         else if component == 1 {
             updateSelectedCountryAndCity(countryIndex: countryPicker.selectedRow(inComponent: 0), cityIndex: row)
         }
     }
+    
+    func updateSelectedCountryAndCity(countryIndex: Int, cityIndex: Int) {
+        CitiesViewModel.shared.changePickedCity(countryIndex: countryIndex, cityIndex: cityIndex)
+    }
 }
-func updateSelectedCountryAndCity(countryIndex: Int, cityIndex: Int) {
-    CitiesViewModel.shared.changePickedCity(countryIndex: countryIndex, cityIndex: cityIndex)
-}
+
+
+
 extension CityPickerAlertController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
@@ -92,6 +96,6 @@ extension CityPickerAlertController: UIPickerViewDataSource {
         default:
             return ""
         }
-
+        
     }
 }

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct Country: Codable {
+struct Country: Codable, Hashable {
     var name = ""
     var code = ""
 }

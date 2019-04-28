@@ -10,10 +10,10 @@ import Foundation
 import GoogleMaps
 
 class TempData {
+    var countriesAndCities = [Country: [City]]()
     var allCountries = [Country]()
     var allCities = [City]()
     var currentCityDetails: CityDetails?
     var currentlySelectedCity: City?
     var boundingBoxes = [String: GMSCoordinateBounds]() //city code : bounding box
-
 }

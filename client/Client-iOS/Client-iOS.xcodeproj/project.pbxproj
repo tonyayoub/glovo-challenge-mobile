@@ -25,6 +25,7 @@
 		F8E87E3B226F2CBF00B5F70F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E87E39226F2CBF00B5F70F /* LaunchScreen.storyboard */; };
 		F8E87E46226F426300B5F70F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E87E45226F426300B5F70F /* InfoView.swift */; };
 		F8E87E4C226F596600B5F70F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E87E4B226F596600B5F70F /* MapView.swift */; };
+		F8F9CCBB22755FF30078429F /* CityTableAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9CCBA22755FF30078429F /* CityTableAlertController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		F8E87E3C226F2CBF00B5F70F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8E87E45226F426300B5F70F /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		F8E87E4B226F596600B5F70F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		F8F9CCBA22755FF30078429F /* CityTableAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableAlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				F8E87E32226F2CBF00B5F70F /* ViewController.swift */,
 				F8080D11227479DA00156AE8 /* ViewController+CLLocationManagerDelegate.swift */,
 				F8080D1522747B5600156AE8 /* ViewController+CitySelectionHandling.swift */,
+				F8F9CCBA22755FF30078429F /* CityTableAlertController.swift */,
 				F8507B012270BC6D00595A87 /* CityPickerAlertController.swift */,
 				F8080D1322747AEC00156AE8 /* CitySelectionHandling.swift */,
 				F8080D172274970300156AE8 /* ViewController+GMSMapViewDelegate.swift */,
@@ -328,6 +331,7 @@
 				F8507B022270BC6D00595A87 /* CityPickerAlertController.swift in Sources */,
 				F8E87E4C226F596600B5F70F /* MapView.swift in Sources */,
 				F8507AFB227057DB00595A87 /* CityDetails.swift in Sources */,
+				F8F9CCBB22755FF30078429F /* CityTableAlertController.swift in Sources */,
 				F8080D182274970300156AE8 /* ViewController+GMSMapViewDelegate.swift in Sources */,
 				F8E87E46226F426300B5F70F /* InfoView.swift in Sources */,
 				F8080D1622747B5600156AE8 /* ViewController+CitySelectionHandling.swift in Sources */,

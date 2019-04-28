@@ -12,8 +12,6 @@ class CityTableAlertController: UIAlertController {
     let countryTable = UITableView(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
     var citiesInSelectedCountry = [City]()
     
-    
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -23,18 +21,9 @@ class CityTableAlertController: UIAlertController {
         super.init(coder: aDecoder)
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //countryTable.reloadComponent(1)
-        //updateSelectedCountryAndCity(countryIndex: 0, cityIndex: 0)
-        // Do any additional setup after loading the view.
-    }
-    
     func setup() {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 300)
-        countryTable.delegate = self
         countryTable.dataSource = self
         countryTable.register(UITableViewCell.self, forCellReuseIdentifier: "CityCell")
         vc.view.addSubview(countryTable)
@@ -46,16 +35,9 @@ class CityTableAlertController: UIAlertController {
                     return
             }
             let city = CitiesViewModel.shared.getCitiesForCountry(countryIndex: countryIndex)[cityIndex]
-            CitiesViewModel.shared.updateCurrentCity(newCity: city)
+            CitiesViewModel.shared.selectCity(city: city)
         }))
         self.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    }
-}
-
-extension CityTableAlertController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let city = CitiesViewModel.shared.getCitiesForCountry(countryIndex: indexPath.section)[indexPath.row]
-        print(city.name)
     }
 }
 
@@ -80,6 +62,4 @@ extension CityTableAlertController: UITableViewDataSource {
         cell.textLabel?.textAlignment = .center
         return cell
     }
-    
-    
 }

@@ -23,9 +23,6 @@ class RemoteData {
     let urlStringOneCity = "http://192.168.43.126:3000/api/cities/"
     #endif
 
-    
-
-    
     func downloadCountries() -> Signal<[Country], Never> {
         return Signal<[Country], Never> { [unowned self]observer in
             guard let url = self.urlCountries else {
@@ -71,7 +68,6 @@ class RemoteData {
     func downloadCity(city: City) -> Signal<CityDetails, Never> {
         return Signal<CityDetails, Never> { [unowned self]observer in
             let urlString = "\(self.urlStringOneCity)\(city.code)"
-            print(urlString)
             guard let url = URL.init(string: urlString) else {
                 
                 return BlockDisposable({

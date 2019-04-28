@@ -8,8 +8,8 @@
 
 import Foundation
 extension ViewController: CitySelectionHandling {
+    
     func handleAllCitiesSummaryDownloaded(cities: [City]) {
-        print("all cities downloaded")
         DispatchQueue.main.async {
             self.mapView.clear()
         }
@@ -24,7 +24,6 @@ extension ViewController: CitySelectionHandling {
     }
     
     func handleCitySelected(newCity: City) {
-        print("city changed to \(newCity.name)")
         CitiesViewModel.shared.downloadCityDetails(city: newCity)
         if let box = CitiesViewModel.shared.citiesBoundaries[newCity.code] {
             DispatchQueue.main.async {
@@ -34,7 +33,6 @@ extension ViewController: CitySelectionHandling {
     }
     
     func handleCityDetailsReady(newDetails: CityDetails) {
-        print("city details ready \(newDetails.name)")
         DispatchQueue.main.async {
             self.infoView.updateCityDetails(cityDetails: newDetails)
         }

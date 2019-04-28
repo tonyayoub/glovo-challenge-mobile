@@ -10,14 +10,16 @@ import UIKit
 import SnapKit
 import ReactiveKit
 
+//used to display city information in the lower section of the main view
 class InfoView: UIView {
-    //uper view
+    //upper section contains the city and country labels
     var upperContainer = UIView()
     var cityName = UILabel()
     var countryName = UILabel()
     
-    //lower view
+    //lower view is divided into 4 sections
     var lowerContainer = UIView()
+    
     var currencyContainer = UIView()
     var timeZoneContainer = UIView()
     var languageContainer = UIView()
@@ -40,9 +42,6 @@ class InfoView: UIView {
         adjustLayouts()
     }
     
-    override func layoutSubviews() {
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -50,28 +49,30 @@ class InfoView: UIView {
     func setup() {
         self.backgroundColor = .white
         
-        cityName.text = "Barcelona"
+        cityName.text = ""
         cityName.textAlignment = .center
         cityName.font = UIFont(name: "Optima-Bold", size: 32)
         
-        countryName.text = "Spain"
+        countryName.text = ""
         countryName.textAlignment = .center
         countryName.font = UIFont(name: "Optima-Bold", size: 16)
+        
         selectCity.setTitle("Select City", for: .normal)
         selectCity.setTitleColor(.blue, for: .normal)
+        
         currentLocation.setTitle("Current", for: .normal)
         currentLocation.setTitleColor(.blue, for: .normal)
+        
         currencyTitle.text = "Curr:"
         currencyTitle.textAlignment = .center
-   
         
         timeZoneTitle.text = "Zone:"
         timeZoneTitle.textAlignment = .center
+        
         languageCodeTitle.text = "Lang:"
         languageCodeTitle.textAlignment = .center
-    
-
     }
+    
     func updateCityDetails(cityDetails: CityDetails) {
         self.cityName.text = cityDetails.name
         self.countryName.text = cityDetails.country_code
@@ -80,7 +81,6 @@ class InfoView: UIView {
         self.languageCodeValue.text = cityDetails.language_code
     }
 
-    
     func addViews() {
         addSubview(upperContainer)
         upperContainer.addSubview(cityName)
@@ -95,10 +95,13 @@ class InfoView: UIView {
         
         currencyContainer.addSubview(currencyTitle)
         currencyContainer.addSubview(currencyValue)
+        
         timeZoneContainer.addSubview(timeZoneTitle)
         timeZoneContainer.addSubview(timeZoneValue)
+        
         languageContainer.addSubview(languageCodeTitle)
         languageContainer.addSubview(languageCodeValue)
+        
         selectContainer.addSubview(selectCity)
         selectContainer.addSubview(currentLocation)
     }
@@ -106,8 +109,8 @@ class InfoView: UIView {
     func adjustLayouts() {
         //upper section
         upperContainer.snp.makeConstraints { (make) in
-            make.left.top.right.equalTo(self)
-            make.height.equalTo(self).multipliedBy(0.5)
+            make.left.top.right.equalTo(self.safeAreaLayoutGuide)
+            make.height.equalTo(self.safeAreaLayoutGuide).multipliedBy(0.5)
         }
         cityName.snp.makeConstraints { (make) in
             make.left.top.width.equalTo(upperContainer)
@@ -122,7 +125,7 @@ class InfoView: UIView {
         
         //lower section
         lowerContainer.snp.makeConstraints { (make) in
-            make.left.bottom.right.equalTo(self)
+            make.left.bottom.right.equalTo(self.safeAreaLayoutGuide)
             make.top.equalTo(upperContainer.snp.bottom)
         }
         
@@ -142,7 +145,7 @@ class InfoView: UIView {
         }
         
         
-        
+        // top right: time zone
         timeZoneContainer.snp_makeConstraints { (make) in
             make.top.right.equalTo(lowerContainer)
             make.width.height.equalTo(lowerContainer).multipliedBy(0.5)
@@ -156,7 +159,7 @@ class InfoView: UIView {
             make.width.equalTo(timeZoneTitle)
         }
         
-        
+        //lower left: language
         languageContainer.snp.makeConstraints { (make) in
             make.bottom.left.equalTo(lowerContainer)
             make.width.height.equalTo(lowerContainer).multipliedBy(0.5)
@@ -170,7 +173,7 @@ class InfoView: UIView {
             make.width.equalTo(languageCodeTitle)
         }
         
-        
+        //lower right
         selectContainer.snp.makeConstraints { (make) in
             make.bottom.right.equalTo(lowerContainer)
             make.width.height.equalTo(lowerContainer).multipliedBy(0.5)

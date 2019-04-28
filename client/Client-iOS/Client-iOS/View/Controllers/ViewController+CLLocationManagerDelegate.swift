@@ -23,31 +23,21 @@ extension ViewController: CLLocationManagerDelegate {
         }
     }
     
-    // Handle incoming location events.
+    // Handles incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             locationChanged.on(.next(location.coordinate))
         }
     }
     
-    // Handle authorization for the location manager.
+    // Handles authorization for the location manager.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
+        if status == .denied {
             suggestManualSelection(message: "Location services denied. Would you like to select a city manually?")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
-        case .notDetermined:
-            print("Location status is unknown.")
-        @unknown default:
-            print("Location status not determined.")
         }
     }
     
+    //shows current location on map if it is contained inside a working area
     func displayCurrentLocation() {
         guard let currentLoc = currentLocation else {
             suggestManualSelection(message: "Your current location is not available. Would you like to select a city manually?")

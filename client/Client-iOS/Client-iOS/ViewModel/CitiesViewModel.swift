@@ -24,30 +24,25 @@ class CitiesViewModel {
     let bag = DisposeBag()
     
     //Subjects
-    let summaryOfAllCitiesDownloaded = PublishSubject<[City], Never>()
+    let summaryOfAllCitiesDownloaded = PublishSubject<[City], Error>()
     let citySelected = PublishSubject<City, Never>()
-    let cityDetailsDownloaded = PublishSubject<CityDetails, Never>()
+    let cityDetailsDownloaded = PublishSubject<CityDetails, Error>()
     
-    //Properties to access Data
+    // MARK: - Properties to access Data
     var cities: [City] {
-        return temp.allCities
+        return temp.cities
     }
     
     var countries: [Country] {
-        return temp.allCountries
+        return temp.countries
     }
     
     var countryNames: [String] {
-        return temp.allCountries.map {
+        return temp.countries.map {
             $0.name
         }
     }
-    
-    var citiesDictionary: [Country: [City]] {
-        return temp.countriesAndCities
-    }
-    
-    
+
     var pickedCity: City? {
         get {
             return temp.currentlySelectedCity
@@ -72,15 +67,13 @@ class CitiesViewModel {
         
         remote.downloadCountries()
             .observeNext { (countries) in
-            self.temp.allCountries = countries
+            self.temp.countries = countries
         }
             .dispose(in: bag)
         
-  
         remote.downloadCities()
             .observeNext { (cities) in
-            self.temp.allCities = cities
-            self.fillDictionary()
+            self.temp.cities = cities
             self.summaryOfAllCitiesDownloaded.on(.next(cities)) //notifies observers about new event
         }
             .dispose(in: bag)
@@ -90,47 +83,29 @@ class CitiesViewModel {
         //bind the city details Subject to a city details Signal returned from Remote.DownloadCity
         cityDetailsDownloaded.bind(signal: remote.downloadCity(city: city)).dispose(in: bag)
     }
+    
     func changePickedCity(countryIndex: Int, cityIndex: Int) {
         temp.currentlySelectedCity = getCitiesForCountry(countryIndex: countryIndex)[cityIndex]
     }
+    
     func getCitiesForCountry(countryIndex: Int) -> [City] {
-        let countryCode = temp.allCountries[countryIndex].code
-        return temp.allCities.filter({ (city) -> Bool in
+        let countryCode = temp.countries[countryIndex].code
+        return temp.cities.filter({ (city) -> Bool in
             return city.country_code == countryCode
         })
     }
     
-    func updateCurrentCity(newCity: City) {
-        citySelected.on(.next(newCity))
+    func selectCity(city: City) {
+        citySelected.on(.next(city))
     }
     
-    func getCountryWithCode(code: String) -> Country? {
-        return temp.allCountries.filter{ country in
-            country.code == code
-        }.first
-    }
-    
-    func fillDictionary() {
-        for city in temp.allCities {
-            if let cityCountry = getCountryWithCode(code: city.country_code) {
-                if let _ = temp.countriesAndCities[cityCountry] {
-                    temp.countriesAndCities[cityCountry]?.append(city)
-                }
-                else { //new country will be inserted
-                    var newCitiesList = [City]()
-                    newCitiesList.append(city)
-                    temp.countriesAndCities[cityCountry] = newCitiesList
-                }
-            }
-            
-        }
-    }
+    //get the city that contains a specific coordinate
     func getCityWithWorkingAreaContainingLocation(loc: CLLocationCoordinate2D) -> City? {
         var res: City? = nil
         for cityCode in temp.boundingBoxes.keys {
             if let box = temp.boundingBoxes[cityCode] {
                 if box.contains(loc) {
-                    res = temp.allCities.filter({ (city) -> Bool in
+                    res = temp.cities.filter({ (city) -> Bool in
                         city.code == cityCode
                     }).first
                 }

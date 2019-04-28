@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     var currentLocationDisplayedAtStartUp = false
     let locationChanged = PublishSubject<CLLocationCoordinate2D, Never>()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeViews()
@@ -29,11 +28,10 @@ class ViewController: UIViewController {
         initializeLocation()
         initializeMap()
     }
-    override func viewDidLayoutSubviews() {
-       // adjustLayouts()
-    }
     
     func initializeViews() {
+        
+        //add events to buttons using ReactiveKit
         infoView.selectCity.reactive.controlEvents(.touchUpInside).observeNext {
             self.showCityPicker()
         }.dispose(in: bag)
@@ -85,12 +83,12 @@ class ViewController: UIViewController {
     func adjustLayouts() {
         //map view
         mapView.snp.makeConstraints { (make) in
-            make.top.right.left.equalTo(view)
+            make.top.right.left.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(view).multipliedBy(0.7)
         }
         //information panel
         infoView.snp.makeConstraints { (make) in
-            make.bottom.right.left.equalTo(view)
+            make.bottom.right.left.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(mapView.snp.bottom)
         }
     }

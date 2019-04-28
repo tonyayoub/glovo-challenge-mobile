@@ -50,7 +50,7 @@ extension ViewController: CLLocationManagerDelegate {
     
     func displayCurrentLocation() {
         guard let currentLoc = currentLocation else {
-            print("Current Location not available. Please select city manually")
+            suggestManualSelection(message: "Your current location is not available. Would you like to select a city manually?")
             return
         }
         if let city = CitiesViewModel.shared.getCityWithWorkingAreaContainingLocation(loc: currentLoc) {

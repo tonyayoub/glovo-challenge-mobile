@@ -20,10 +20,9 @@ extension ViewController: CitySelectionHandling {
                 self.mapView.drawMarkerAtCenterOfBounds(box: cityBounds, title: city.name, data: city)
                 self.mapView.drawPolygons(polyLines: city.working_area)
             }
-
         }
     }
- 
+    
     func handleCitySelected(newCity: City) {
         print("city changed to \(newCity.name)")
         CitiesViewModel.shared.downloadCityDetails(city: newCity)

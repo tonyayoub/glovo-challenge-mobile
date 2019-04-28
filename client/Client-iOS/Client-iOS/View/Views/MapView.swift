@@ -41,7 +41,6 @@ class MapView: GMSMapView {
     }
     
     func drawPolygons(polyLines: [String]) {
-        print("polygons drawn")
         for polyLine in polyLines {
             if let path = GMSPath(fromEncodedPath: polyLine) {
                 var bounds = GMSCoordinateBounds(path: path)
@@ -49,37 +48,47 @@ class MapView: GMSMapView {
                 polygon.map = self
             }
         }
+        
     }
     
-    func getCenterOfBounds(bounds: GMSCoordinateBounds) -> CLLocationCoordinate2D? {
-        var sw = bounds.southWest
-        var ne = bounds.northEast
-        return nil
+    func drawUnionPolygon(polyLines: [String]) {
+        let unionPth = getUnionOfPolygons(polylines: polyLines)
+        let polygon = GMSPolygon(path: unionPth)
+        polygon.map = self
     }
+
     func getCoordinatesForPath(path: GMSPath) -> [CLLocationCoordinate2D] {
         var res = [CLLocationCoordinate2D]()
-        for i in 0...path.count() {
+        for i in 0..<path.count() {
             res.append(path.coordinate(at: i))
         }
         return res
     }
-    func getUnionOfPolygons(polylines: [String]) -> GMSPolygon? {
-        let pathCoordinates: [CLLocationCoordinate2D] = getCoordinatesForPath(path: GMSPath(fromEncodedPath: polylines.first!)!)
-        var res = MKPolygon(coordinates: pathCoordinates, count: pathCoordinates.count)
-        
+    func getUnionOfPolygons(polylines: [String]) -> GMSPath? {
+        let firstPoly = polylines.first!
+        let firstPath = GMSPath(fromEncodedPath: firstPoly)!
+        let coords = getCoordinatesForPath(path: firstPath)
+
+        var unionMapKitPolygon = MKPolygon(coordinates: coords, count: coords.count)
+        unionMapKitPolygon = MKPolygon()
         for polyLine in polylines {
+            if polyLine == "" {
+                continue
+            }
             let pathCoordinates: [CLLocationCoordinate2D] = getCoordinatesForPath(path: GMSPath(fromEncodedPath: polyLine)!)
-            var mkPolygon = MKPolygon(coordinates: pathCoordinates, count: pathCoordinates.count)
-            res = res.fromUnion(with: mkPolygon)
+            let mkPolygon = MKPolygon(coordinates: pathCoordinates, count: pathCoordinates.count)
+            unionMapKitPolygon = unionMapKitPolygon.fromUnion(with: mkPolygon)
         }
         
-        var x = res.points()
-        for i in 0...res.pointCount {
-            var p = res.points()[i].coordinate
-            print(p)
+        
+        var unionPoints = [CLLocationCoordinate2D]()
+        let gmsPath = GMSMutablePath()
+        for i in 0..<unionMapKitPolygon.pointCount {
+            gmsPath.add(unionMapKitPolygon.points()[i].coordinate)
+            unionPoints.append(unionMapKitPolygon.points()[i].coordinate)
         }
         
-        return nil
+        return gmsPath
 //        var newCoordinates: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
 //        let coordsPointer = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: newCoordinates.count)
 ////        coordsPointer.initialize(from: newCoordinates, count: newCoordinates.count)
